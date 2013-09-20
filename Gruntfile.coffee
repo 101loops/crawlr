@@ -6,7 +6,7 @@ module.exports = (grunt) ->
 
     # https://npmjs.org/package/grunt-clean
     clean:
-      crawler: [
+      main: [
         "bin"
       ]
 
@@ -15,7 +15,7 @@ module.exports = (grunt) ->
 
     # https://npmjs.org/package/grunt-contrib-copy
     copy:
-      crawler:
+      main:
         files: [
           {
             cwd: "."
@@ -34,7 +34,7 @@ module.exports = (grunt) ->
         bare: true
         #sourceMap: true
 
-      crawler:
+      main:
         expand: true
         cwd: "."
         src: ["**/*.coffee"]
@@ -53,7 +53,7 @@ module.exports = (grunt) ->
         ui: "bdd",
         reporter: "tap"
 
-      crawler:
+      main:
         src: "bin/test/**/*.js"
 
 
@@ -64,7 +64,7 @@ module.exports = (grunt) ->
       options:
         branch: "master"
 
-      crawler:
+      main:
         options:
           url: "git@heroku.com:crawlr.git"
         src: "bin"
@@ -74,7 +74,7 @@ module.exports = (grunt) ->
 
     # https://npmjs.org/package/grunt-express
     express:
-      crawler:
+      main:
         options:
           background: false
           script: "bin/app.js"
@@ -91,7 +91,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-watch"
 
   grunt.loadNpmTasks "grunt-express-server"
-  grunt.loadNpmTasks "grunt-go"
+  grunt.loadNpmTasks "grunt-git-deploy"
   grunt.loadNpmTasks "grunt-simple-mocha"
 
 
@@ -100,7 +100,7 @@ module.exports = (grunt) ->
 
   # default / build
   grunt.registerTask("default", "Build the application", ->
-    grunt.task.run("clean:crawler", "copy:crawler", "coffee:crawler")
+    grunt.task.run("clean", "copy", "coffee")
   )
   grunt.registerTask "build", ["default"]
 
@@ -111,10 +111,10 @@ module.exports = (grunt) ->
 
   # test
   grunt.registerTask("test", "Test the application", ->
-    grunt.task.run("build", "simplemocha:crawler")
+    grunt.task.run("build", "simplemocha")
   )
 
   # deploy
   grunt.registerTask("deploy", "Deploy the application", ->
-    grunt.task.run("build", "git_deploy:crawler")
+    grunt.task.run("build", "git_deploy")
   )

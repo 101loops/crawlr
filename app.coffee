@@ -1,24 +1,13 @@
+setup = require("./setup")
 express = require("express")
 
-module.exports = (app, SECRET) ->
+PORT = process.env.PORT || 3000
+SECRET = process.env.SECRET || "secret"
 
-  app.configure ->
-    #app.use express.logger()
+# ==== boot
 
-    CORS = (req, res, next) ->
-      res.header "Access-Control-Allow-Origin", "*"
-      res.header "Access-Control-Allow-Methods", "GET,PUT,POST,DELETE"
-      next()
-    app.use CORS
+app = module.exports = express()
+setup app, SECRET
 
-    AUTH = (req, res, next) ->
-      auth = req.header("Authorization") || req.query.auth || ""
-      if auth.indexOf(SECRET) == -1
-        res.status(401).send("No Trespassing")
-      else
-        next()
-    app.use AUTH
-
-    app.use app.router
-
-  require("./srv/api.js")(app)
+app.listen PORT, ->
+  console.log "Listening on " + PORT
