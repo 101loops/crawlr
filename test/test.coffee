@@ -53,3 +53,16 @@ describe "API", ->
       # TODO
 
       done()
+
+  it "crawl wooga.com", (done) ->
+    request.get helper.url("/crawl/deep?root=http://www.wooga.com&" + helper.authQry()), (err, resp, body) ->
+      expect(resp.statusCode).to.equal(200)
+      expect(body).to.be.a("string")
+
+      json = JSON.parse(body)
+      expect(json).to.have.property("url")
+      expect(json["url"]).to.equal("http://www.wooga.com")
+
+      # TODO
+
+      done()
