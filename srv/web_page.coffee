@@ -33,9 +33,9 @@ class WebPage
 
           # extract meta (only on root site)
           if depth == 0
-            result.set "h1", webutil.encode(_s.stripTags($("h1").html()))
-            result.set "h2", webutil.encode(_s.stripTags($("h2").html()))
-            result.set "h3", webutil.encode(_s.stripTags($("h3").html()))
+            result.set "h1", findHeadings($, 1)
+            result.set "h2", findHeadings($, 2)
+            result.set "h3", findHeadings($, 3)
 
             result.set "title", webutil.encode($("title").html())
             result.set "keywords", webutil.encode(findMeta($, "name", "keywords")[0]?.content)
@@ -139,8 +139,11 @@ findFeeds = ($, url, urlRoot) ->
       url: webutil.absUrl(urlRoot, tag["href"])
   feeds.unique()
 
-findHeadings = ($) ->
-  # TODO: scan all headings prior to HTML element (h3 -> h2 -> h1)
+findHeadings = ($, level, path = "html") ->
+  res = []
+  $(path).find("h" + level).each (i, h) ->
+    res.push(webutil.encode(_s.stripTags($(h).html())))
+  res
 
 findMetaResources = ($, urlRoot) ->
   resources = webresources()
