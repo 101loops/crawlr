@@ -6,8 +6,8 @@ log = require("./log")
 webutil = require("./web_util")
 
 linkKeywords = [
-  "blog", "developers", "hiring", "job", "career", "about", "contact",
-  "press", "imprint", "team", "news", "company"
+  "blog", "developer", "engineer", "hiring", "job", "career", "about", "contact",
+  "press", "imprint", "team", "news", "company", "work", "faq", "offer"
 ]
 
 # ==== INTERFACE
