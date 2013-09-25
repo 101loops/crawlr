@@ -53,8 +53,14 @@ module.exports = (grunt) ->
         ui: "bdd",
         reporter: "tap"
 
-      main:
+      all:
         src: "bin/test/**/*.js"
+
+      unit:
+        src: "bin/test/unit/**/*.js"
+
+      func:
+        src: "bin/test/func/**/*.js"
 
 
     # ==== GIT-DEPLOY
@@ -110,8 +116,8 @@ module.exports = (grunt) ->
   )
 
   # test
-  grunt.registerTask("test", "Test the application", ->
-    grunt.task.run("build", "simplemocha")
+  grunt.registerTask("test", "Test the application", (target = "all") ->
+    grunt.task.run("build", "simplemocha:" + target)
   )
 
   # deploy
