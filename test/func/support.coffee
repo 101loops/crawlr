@@ -1,5 +1,5 @@
 express = require("express")
-setup = require("../setup")
+setup = require("../../setup")
 http = require("http")
 
 app = express()
