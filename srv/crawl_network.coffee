@@ -12,6 +12,8 @@ crawlNetworks = (links, opts) ->
     crawlTumblr(links, opts)
   ).concat(
     crawlGooglePlus(links, opts)
+  ).concat(
+    crawlPinterest(links, opts)
   )
 
 pickNetworkLink = (links, opts) ->
@@ -58,6 +60,14 @@ crawlTumblr = (links, opts) ->
 crawlGooglePlus = (links, opts) ->
   resources = []
   url = opts.gplus ? pickNetworkLink(links.withUrlMatch("plus.google.com/"), opts)
+  if url
+    log("crawling " + url)
+    # TODO
+  uniqueLinks(resources)
+
+crawlPinterest = (links, opts) ->
+  resources = []
+  url = opts.pinterest ? pickNetworkLink(links.withUrlMatch("pinterest.com/"), opts)
   if url
     log("crawling " + url)
     # TODO
