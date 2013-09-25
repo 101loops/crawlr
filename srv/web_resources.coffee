@@ -63,11 +63,11 @@ class WebResources
   interesting: (limit) ->
     followLinks = @links()
 
-    if followLinks.length() > limit
-      followLinks = followLinks().keyworded(limit).take(limit)
+    if followLinks.length() < limit
+      followLinks = followLinks.sort((link) -> link.url.length).take(limit)
 
-      if followLinks.length() < limit
-        followLinks = followLinks.merge(@sort((link) -> link.url.length)).take(limit)
+    if followLinks.length() > limit
+      followLinks = followLinks.keyworded(limit).take(limit)
 
     followLinks
 

@@ -37,7 +37,7 @@ class Crawler
         callback 500, result
       else
         # (2) - crawl sub-pages
-        crawlLinks = result.getResources().interesting(opts.domain, opts.maxlinks).withDomain(opts.domain)
+        crawlLinks = result.getResources().interesting(opts.maxlinks).withDomain(opts.domain)
         #console.log(crawlLinks)
         crawlPages result, crawlLinks, opts, 1, (result2) ->
 
